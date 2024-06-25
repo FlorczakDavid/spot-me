@@ -1,4 +1,14 @@
 **/.project
 **/.dbeaver
 **/.DS_Store
+
 design/
+
+**/.classpath
+**/.settings/
+
+**/.mvn/
+**/mvnw*
+**/target/
+**/bin/
+#target et bin contiennent le code compile
