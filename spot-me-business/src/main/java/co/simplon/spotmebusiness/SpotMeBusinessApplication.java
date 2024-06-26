@@ -1,4 +1,4 @@
-package co.simplon.spot_me_business;
+package co.simplon.spotmebusiness;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
