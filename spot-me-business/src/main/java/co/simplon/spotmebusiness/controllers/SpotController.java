@@ -1,12 +1,20 @@
 package co.simplon.spotmebusiness.controllers;
 
+import java.util.Collection;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.spotmebusiness.dtos.SpotCreate;
+import co.simplon.spotmebusiness.dtos.SpotUpdate;
+import co.simplon.spotmebusiness.dtos.SpotView;
+import co.simplon.spotmebusiness.services.SpotService;
 import jakarta.validation.Valid;
 
 // /spots -> collection of resources
@@ -14,14 +22,30 @@ import jakarta.validation.Valid;
 @RestController
 public class SpotController {
 
+	private final SpotService service;
+
+	public SpotController(SpotService service) {
+		this.service = service;
+	}
+
 	// @RequestBody => TXT/JSON
 	@PostMapping
 	void create(@Valid @ModelAttribute SpotCreate inputs) { // naming convention: just create
-		System.out.println(inputs);
-		MultipartFile image = inputs.image();
-		System.out.println(image.getName());
-		System.out.println(image.getContentType());
-		System.out.println(image.getSize());
-		System.out.println(image.getOriginalFilename());
+		service.create(inputs);
+	}
+
+	@GetMapping
+	Collection<SpotView> getAll() {
+		return service.getAll();
+	}
+
+	@DeleteMapping("/{id}")
+	void deleteOne(@PathVariable("id") Long id) {
+		service.deleteOne(id);
+	}
+
+	@PutMapping("/{id}")
+	void updateSpot(@PathVariable("id") Long id, @Valid @ModelAttribute SpotUpdate inputs) {
+		service.updateSpot(id, inputs);
 	}
 }

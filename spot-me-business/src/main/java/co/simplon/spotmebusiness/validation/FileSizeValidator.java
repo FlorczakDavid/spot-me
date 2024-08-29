@@ -1,4 +1,4 @@
-package co.simplon.spotmebusiness.dtos.validators;
+package co.simplon.spotmebusiness.validation;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +19,9 @@ public class FileSizeValidator implements ConstraintValidator<FileSize, Multipar
 
 	@Override
 	public boolean isValid(MultipartFile value, ConstraintValidatorContext context) {
+		if (value == null) {
+			return true;
+		}
 		Boolean result = (value.getSize() < max);
 		return result;
 	}

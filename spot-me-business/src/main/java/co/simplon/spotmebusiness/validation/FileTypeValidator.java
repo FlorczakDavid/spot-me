@@ -1,4 +1,4 @@
-package co.simplon.spotmebusiness.dtos.validators;
+package co.simplon.spotmebusiness.validation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +22,9 @@ public class FileTypeValidator implements ConstraintValidator<FileType, Multipar
 
 	@Override
 	public boolean isValid(MultipartFile value, ConstraintValidatorContext context) {
+		if (value == null) {
+			return true;
+		}
 		String fileType = value.getContentType();
 		return acceptedTypes.contains(fileType);
 	}
